@@ -1,0 +1,33 @@
+<main class="todoapp">
+  <header class="header">
+    <h1>todos</h1>
+    <div class="error-message" *ngIf="errMsg != ''">{{errMsg}}</div>
+    <form (submit)="addTodo()" enctype="application/x-www-form-urlencoded" role="form" novalidate>
+      <input class="new-todo" placeholder="What needs to be done" autofocus [(ngModel)]="txtTodo" name="todo">
+    </form>
+  </header>
+  <section class="main">
+    <app-complete-all></app-complete-all>
+    <app-todos-list [todoList]="filteredTodos"></app-todos-list>
+  </section>
+  <footer class="footer">
+    <span class="todo-count"><b>{{getRemaining()}}</b> {{getRemaining() == 1 ? 'item' : 'items'}} left</span>
+    <ul class="filters">
+      <li>
+        <a [class.selected]="currentStatus == 'All'" (click)="filterTodo('All')" href="#/">All</a>
+      </li>
+      <li>
+        <a [class.selected]="currentStatus == 'Active'" (click)="filterTodo('Active')" href="#/Active">Active</a>
+      </li>
+      <li>
+        <a [class.selected]="currentStatus == 'Completed'" (click)="filterTodo('Completed')"
+          href="#/Completed">Completed</a>
+      </li>
+    </ul>
+    <button (click)="clearCompleted()" class="clear-completed" *ngIf="getCompleted().length > 0">Clear
+      completed</button>
+  </footer>
+</main>
+<footer class="info">
+  <p>Double-click to edit a todo</p>
+</footer>

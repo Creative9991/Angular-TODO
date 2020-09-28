@@ -1,0 +1,15 @@
+<ul class="todo-list" *ngIf="todoList.length > 0">
+  <li *ngFor="let todo of todoList.slice()" [class.editing]="todo.isEditMode"
+    [class.completed]="todo.completed">
+    <div class="view">
+      <input class="toggle" type="checkbox" (click)="toggleComplete(todo)" [checked]="todo.completed" />
+      <label (dblclick)="editTodo(todo)">{{todo.text}}</label>
+      <button class="destroy" (click)="removeTodo(todo)"></button>
+    </div>
+    <input #txtEditTodo *ngIf="todo.isEditMode" class="edit" [value]="todo.text"
+      (keyup.enter)="updateEditTodo(todo, txtEditTodo.value)" (keyup.escape)="cancelEditTodo(todo)">
+  </li>
+</ul>
+<div class="no-matches" *ngIf="todoList.length <= 0">
+  No Items Found
+</div>
